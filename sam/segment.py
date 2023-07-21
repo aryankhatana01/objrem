@@ -22,7 +22,12 @@ def generate_mask(image, pixel):
     mask, _, _ = predictor.predict(
         point_coords=input_pts,
         point_labels=input_labels,
-        multimask_ouput=False,
+        multimask_output=False,
     )
     mask = Image.fromarray(mask[0, :, :].astype(np.uint8))
     return mask
+
+if __name__ == "__main__":
+    image = Image.open('../test_images/cat.jpeg')
+    mask = generate_mask(image, [100, 100])
+    mask.save('./mask.jpeg')
